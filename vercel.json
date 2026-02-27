@@ -1,6 +1,6 @@
 {
-  "installCommand": "npm install --prefix App/web",
-  "buildCommand": "npm run build --prefix App/web",
+  "installCommand": "cd App/web && npm ci --include=dev",
+  "buildCommand": "cd App/web && npm run build",
   "outputDirectory": "App/web/dist",
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
