@@ -27,10 +27,15 @@
 ---
 
 ## 📸 Preview
+<img width="1779" height="996" alt="image" src="https://github.com/user-attachments/assets/ca31e4ff-9ff3-47aa-8241-2aae10527b94" />
+<img width="1586" height="983" alt="image" src="https://github.com/user-attachments/assets/d93d3982-adc6-4fc3-9086-ac44c68e457c" />
+<img width="1508" height="951" alt="image" src="https://github.com/user-attachments/assets/e8cb1755-a08e-40ee-8184-699ecdf26cae" />
+<img width="1519" height="858" alt="image" src="https://github.com/user-attachments/assets/20870632-23a5-4461-a632-b1c58419c40a" />
+<img width="1513" height="975" alt="image" src="https://github.com/user-attachments/assets/beea20db-7bc4-4ca1-90e9-a3102b176bbf" />
+<img width="1609" height="677" alt="image" src="https://github.com/user-attachments/assets/0a16e1ff-7f11-41f4-92a3-0b63670a3947" />
+<img width="1498" height="834" alt="image" src="https://github.com/user-attachments/assets/b9a432fa-3a2b-4f23-8112-02dbe71a30d5" />
 
-![Portfolio Preview](./public/preview.png)
 
-> 💡 Run `npm run dev`, take a screenshot, save it as `public/preview.png` and it will appear here.
 
 ---
 
