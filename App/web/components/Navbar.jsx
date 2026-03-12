@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Download } from 'lucide-react';
 
 const navLinks = [
     { name: 'Home', href: '#home' },
@@ -22,7 +22,6 @@ export default function Navbar() {
     useEffect(() => {
         const onScroll = () => {
             setScrolled(window.scrollY > 30);
-
             const sections = navLinks.map((l) => l.href.slice(1));
             for (let i = sections.length - 1; i >= 0; i--) {
                 const el = document.getElementById(sections[i]);
@@ -45,9 +44,7 @@ export default function Navbar() {
 
     return (
         <header
-            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled
-                    ? 'glass-strong shadow-lg shadow-black/20'
-                    : 'bg-transparent'
+            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? 'glass-strong shadow-lg shadow-black/20' : 'bg-transparent'
                 }`}
         >
             <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -77,13 +74,23 @@ export default function Navbar() {
                             >
                                 {link.name}
                                 <span
-                                    className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-gradient-to-r from-neon-cyan to-neon-purple rounded-full transition-all duration-300 ${activeSection === link.href.slice(1)
-                                            ? 'w-6'
-                                            : 'w-0 group-hover:w-6'
+                                    className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-gradient-to-r from-neon-cyan to-neon-purple rounded-full transition-all duration-300 ${activeSection === link.href.slice(1) ? 'w-6' : 'w-0 group-hover:w-6'
                                         }`}
                                 />
                             </a>
                         ))}
+
+                        {/* Resume Button */}
+                        <motion.a
+                            href="/resume.pdf"
+                            download="Ayushman_Dixit_Resume.pdf"
+                            className="ml-3 flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-neon-cyan to-neon-blue text-white text-sm font-semibold shadow-lg shadow-neon-cyan/20 hover:shadow-neon-cyan/40 transition-shadow"
+                            whileHover={{ scale: 1.05, y: -1 }}
+                            whileTap={{ scale: 0.95 }}
+                        >
+                            <Download size={14} />
+                            Resume
+                        </motion.a>
                     </div>
 
                     {/* Mobile Toggle */}
@@ -125,6 +132,19 @@ export default function Navbar() {
                                     {link.name}
                                 </motion.a>
                             ))}
+
+                            {/* Mobile Resume Button */}
+                            <motion.a
+                                href="/resume.pdf"
+                                download="Ayushman_Dixit_Resume.pdf"
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: navLinks.length * 0.05 }}
+                                className="flex items-center gap-2 px-4 py-3 rounded-lg text-sm font-semibold text-neon-cyan bg-neon-cyan/10 border border-neon-cyan/20"
+                            >
+                                <Download size={14} />
+                                Download Resume
+                            </motion.a>
                         </div>
                     </motion.div>
                 )}
