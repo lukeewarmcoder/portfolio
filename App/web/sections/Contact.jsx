@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Github, Linkedin, Send } from 'lucide-react';
+import { Mail, Github, Linkedin, Send, CheckCircle, AlertCircle } from 'lucide-react';
 import MotionWrapper from '../components/MotionWrapper';
 
 const contactInfo = [
@@ -34,28 +34,38 @@ export default function Contact() {
         setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (!form.name || !form.email || !form.message) return;
 
         setStatus('sending');
+
         try {
-            const submissions = JSON.parse(localStorage.getItem('contactSubmissions') || '[]');
-            submissions.push({ ...form, timestamp: new Date().toISOString() });
-            localStorage.setItem('contactSubmissions', JSON.stringify(submissions));
-            setStatus('sent');
-            setForm({ name: '', email: '', message: '' });
-            setTimeout(() => setStatus('idle'), 3000);
+            const res = await fetch('https://formspree.io/f/xqeyqvpo', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: form.name,
+                    email: form.email,
+                    message: form.message,
+                }),
+            });
+
+            if (res.ok) {
+                setStatus('sent');
+                setForm({ name: '', email: '', message: '' });
+                setTimeout(() => setStatus('idle'), 4000);
+            } else {
+                setStatus('error');
+                setTimeout(() => setStatus('idle'), 4000);
+            }
         } catch {
             setStatus('error');
-            setTimeout(() => setStatus('idle'), 3000);
+            setTimeout(() => setStatus('idle'), 4000);
         }
-    };
-
-    const openMailto = () => {
-        const subject = `Contact from Portfolio: ${form.name || ''}`.trim();
-        const body = [`Name: ${form.name || ''}`, `Email: ${form.email || ''}`, '', (form.message || '').trim()].join('\n');
-        window.location.href = `mailto:ayushmandixit585@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     };
 
     const inputClasses =
@@ -174,32 +184,41 @@ export default function Contact() {
                                 />
                             </div>
 
-                            <div className="flex flex-col sm:flex-row gap-3">
-                                <motion.button
-                                    type="submit"
-                                    disabled={status === 'sending'}
-                                    className="flex-1 px-6 py-4 bg-gradient-to-r from-neon-cyan to-neon-blue text-white rounded-xl font-semibold flex items-center justify-center gap-2 shadow-lg shadow-neon-cyan/20 hover:shadow-neon-cyan/40 transition-shadow disabled:opacity-50"
-                                    whileHover={{ scale: 1.02 }}
-                                    whileTap={{ scale: 0.98 }}
+                            {/* Status messages */}
+                            {status === 'sent' && (
+                                <motion.div
+                                    initial={{ opacity: 0, y: -10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    className="flex items-center gap-2 px-4 py-3 rounded-xl bg-green-500/10 border border-green-500/20 text-green-400 text-sm"
                                 >
-                                    {status === 'sending' && 'Sending...'}
-                                    {status === 'sent' && '✓ Sent!'}
-                                    {status === 'error' && 'Error — Try Again'}
-                                    {status === 'idle' && (
-                                        <>Send Message <Send size={16} /></>
-                                    )}
-                                </motion.button>
+                                    <CheckCircle size={16} />
+                                    Message sent! I will get back to you soon.
+                                </motion.div>
+                            )}
 
-                                <motion.button
-                                    type="button"
-                                    onClick={openMailto}
-                                    className="flex-1 px-6 py-4 glass rounded-xl font-semibold text-slate-300 hover:text-white border border-white/10 hover:border-neon-cyan/30 transition-all"
-                                    whileHover={{ scale: 1.02 }}
-                                    whileTap={{ scale: 0.98 }}
+                            {status === 'error' && (
+                                <motion.div
+                                    initial={{ opacity: 0, y: -10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    className="flex items-center gap-2 px-4 py-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm"
                                 >
-                                    Send Email
-                                </motion.button>
-                            </div>
+                                    <AlertCircle size={16} />
+                                    Something went wrong. Please try emailing me directly.
+                                </motion.div>
+                            )}
+
+                            <motion.button
+                                type="submit"
+                                disabled={status === 'sending' || status === 'sent'}
+                                className="w-full px-6 py-4 bg-gradient-to-r from-neon-cyan to-neon-blue text-white rounded-xl font-semibold flex items-center justify-center gap-2 shadow-lg shadow-neon-cyan/20 hover:shadow-neon-cyan/40 transition-shadow disabled:opacity-50 disabled:cursor-not-allowed"
+                                whileHover={{ scale: status === 'idle' ? 1.02 : 1 }}
+                                whileTap={{ scale: status === 'idle' ? 0.98 : 1 }}
+                            >
+                                {status === 'sending' && 'Sending...'}
+                                {status === 'sent' && <><CheckCircle size={16} /> Sent!</>}
+                                {status === 'error' && 'Try Again'}
+                                {status === 'idle' && <><Send size={16} /> Send Message</>}
+                            </motion.button>
                         </form>
                     </MotionWrapper>
                 </div>
