@@ -23,3 +23,7 @@ Thumbs.db
 # IDE
 .vscode/
 .idea/
+
+# AI Assitants/Code Gen
+.islstudio/
+.vibecheck/
