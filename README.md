@@ -144,6 +144,7 @@ npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) in your browser 🎉
+Also you can access at https://portfolio-git-main-lukeewarmcoders-projects.vercel.app/
 
 ### Available Scripts
 
