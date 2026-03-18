@@ -82,7 +82,7 @@ export default function Navbar() {
 
                         {/* Resume Button */}
                         <motion.a
-                            href="/resume.pdf"
+                            href="/Resume.pdf"
                             download="Ayushman_Dixit_Resume.pdf"
                             className="ml-3 flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-neon-cyan to-neon-blue text-white text-sm font-semibold shadow-lg shadow-neon-cyan/20 hover:shadow-neon-cyan/40 transition-shadow"
                             whileHover={{ scale: 1.05, y: -1 }}
@@ -135,7 +135,7 @@ export default function Navbar() {
 
                             {/* Mobile Resume Button */}
                             <motion.a
-                                href="/resume.pdf"
+                                href="/Resume.pdf"
                                 download="Ayushman_Dixit_Resume.pdf"
                                 initial={{ opacity: 0, x: -20 }}
                                 animate={{ opacity: 1, x: 0 }}

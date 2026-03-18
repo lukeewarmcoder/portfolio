@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
@@ -179,7 +179,7 @@ export default function Hero() {
 
                         {/* Resume Download */}
                         <motion.a
-                            href="/resume.pdf"
+                            href="/Resume.pdf"
                             download="Ayushman_Dixit_Resume.pdf"
                             className="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl font-semibold text-white border border-neon-cyan/40 bg-neon-cyan/10 hover:bg-neon-cyan/20 hover:border-neon-cyan/70 shadow-[0_0_20px_rgba(0,240,255,0.08)] hover:shadow-[0_0_30px_rgba(0,240,255,0.2)] transition-all duration-300"
                             whileHover={{ scale: 1.04, y: -3 }}
